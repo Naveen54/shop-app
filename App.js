@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, compose } from 'redux';
 import { Provider } from 'react-redux';
 import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
 import { applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
-
+import { composeWithDevTools } from 'redux-devtools-extension'
 import productsReducer from './store/reducers/products';
 import cartReducer from './store/reducers/cart';
 import ordersReducer from './store/reducers/orders';
@@ -17,6 +17,7 @@ const rootReducer = combineReducers({
   cart: cartReducer,
   orders: ordersReducer
 });
+const composedEnhancer = compose(composeWithDevTools())
 
 const store = createStore(rootReducer,applyMiddleware(ReduxThunk));
 
